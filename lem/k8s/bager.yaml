@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: page
+spec:
+  containers:
+  - name: page
+    image: gabeee123/lem:pager

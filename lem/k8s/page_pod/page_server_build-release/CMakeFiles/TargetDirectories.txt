@@ -1,0 +1,3 @@
+/home/ubuntu/lemon-all/page_server/build-release/CMakeFiles/page_server.dir
+/home/ubuntu/lemon-all/page_server/build-release/CMakeFiles/edit_cache.dir
+/home/ubuntu/lemon-all/page_server/build-release/CMakeFiles/rebuild_cache.dir

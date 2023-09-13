@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: page
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: page-server
+  template:
+    metadata:
+      labels:
+        app: page-server
+    spec:
+      imagePullSecrets:
+        - name: docker-secret
+      containers:
+        - name: page-server
+          image: gabeee123/lem:pagem
+          volumeMounts:
+            - name: page-storage
+              mountPath: /mnt/
+      volumes:
+        - name: page-storage
+          persistentVolumeClaim:
+            claimName: page-pvc
+

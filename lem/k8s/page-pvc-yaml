@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: page-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: page-storage
+  resources:
+    requests:
+      storage: 1Gi
