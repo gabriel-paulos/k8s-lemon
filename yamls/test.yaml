@@ -1,0 +1,68 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-server
+  labels:
+    app: test-server
+spec:
+  terminationGracePeriodSeconds: 1
+  containers:
+  - name: netshoot
+    image: nicolaka/netshoot
+    command: ["/bin/sh"]
+    args: ["-c", "while true; do nc -lv 8080; done"]
+  tolerations:
+  - key: "cattle.io/os"
+    operator: "Equal"
+    value: "linux"
+    effect: "NoSchedule"
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+          - key: app
+            operator: In
+            values: ["test-client"]
+        topologyKey: "kubernetes.io/hostname"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-server
+  labels:
+    app: test-server
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+  selector:
+    app: test-server
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-client
+  labels:
+    app: client
+spec:
+  terminationGracePeriodSeconds: 1
+  containers:
+  - name: netshoot
+    image: nicolaka/netshoot
+    command: ["/bin/sh"]
+    args: ["-c", "while true; do nc -vz -w 5 test-server 8080; sleep 2;done"]
+  tolerations:
+  - key: "cattle.io/os"
+    operator: "Equal"
+    value: "linux"
+    effect: "NoSchedule"
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+          - key: app
+            operator: In
+            values: ["test-server"]
+        topologyKey: "kubernetes.io/hostname"

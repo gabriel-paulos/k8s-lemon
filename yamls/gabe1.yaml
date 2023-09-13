@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: specific-node-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: specific-node-pod
+  template:
+    metadata:
+      labels:
+        app: specific-node-pod
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: gab-new-1 
+      containers:
+      - name: busybox-container
+        image: busybox:latest
+        command: ["/bin/sh"]
+        args: ["-c", "sleep 3600"]
