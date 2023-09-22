@@ -21,7 +21,7 @@ spec:
            - 'sh'
            - '-c'
            - |
-             sed -i 's/MAX_RAM_IN_GB: .*/MAX_RAM_IN_GB: 6/' /home/page_server/build-release/remon.config
+             sed -i 's/MAX_RAM_IN_GB: .*/MAX_RAM_IN_GB: new_value/' /home/page_server/build-release/remon.config
              /home/page.sh
           volumeMounts:
             - name: page-storage

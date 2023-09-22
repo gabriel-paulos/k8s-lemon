@@ -17,7 +17,7 @@ kubectl apply -f remon.yaml
 # Define the name of the pod
 POD_NAME="duck"
 
-sleep 5
+sleep 30
 
 # Check if the pod is running
 if kubectl get pods "$POD_NAME" &> /dev/null; then

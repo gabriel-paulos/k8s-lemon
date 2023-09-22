@@ -14,15 +14,18 @@ spec:
     spec:
       imagePullSecrets:
         - name: regcred
-      containers:
-        - name: page-server
-          image: gabeee123/lem:pageb
-          command:
+      initContainers:
+        - name: init-container
+          image: busybox
+          command: 
            - 'sh'
            - '-c'
-           - |
-             sed -i 's/MAX_RAM_IN_GB: .*/MAX_RAM_IN_GB: 6/' /home/page_server/build-release/remon.config
-             /home/page.sh
+           - 'sleep 6000'
+              #   - "sed -i 's/MAX_RAM_IN_GB: .*/MAX_RAM_IN_GB: new_value/' /home/page_server/build-release/remon.config"
+          
+      containers:
+        - name: page-server
+          image: gabeee123/lem:pagem
           volumeMounts:
             - name: page-storage
               mountPath: /mnt/
