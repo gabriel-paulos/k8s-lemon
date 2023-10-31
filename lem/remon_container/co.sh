@@ -22,6 +22,7 @@ new_number=$((largest_number + 1))
 # Step 4: Create the new log file name
 log="log_$new_number"
 
+#(cat /mnt/dbgen/150G_TPCH/run_4.sql | /home/ubuntu/lemon-all/duckdb_fixed_version/duckdb_0_8_1_remon_atached/build-release/duckdb) > /mnt/logs/$log
 (cat /mnt/tpch_3_0_1/dbgen/10G_q5/run.sql | /home/ubuntu/lemon-all/duckdb_fixed_version/duckdb_0_8_1_remon_atached/build-release/duckdb) > /mnt/logs/$log 
 
 
