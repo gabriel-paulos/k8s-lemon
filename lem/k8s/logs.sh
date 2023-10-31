@@ -1,10 +1,12 @@
 #!/bin/bash
 
-VAL=6
+VAL=20
 
 echo "The RAM size is $VAL for the lemon server"
 
-sed -i "s/new_value/$VAL/g" remon.yaml
+sed -i "s/new_value/$VAL/g" remJob.yaml
+
+cat remon.yaml
 
 PAGE=6
 
@@ -39,7 +41,7 @@ cat /mnt/addrs.txt
 
 sleep 1
 
-kubectl apply -f remon.yaml
+kubectl apply -f remJob.yaml
 
 # Define the name of the pod
 POD_NAME="duck"
@@ -59,9 +61,17 @@ fi
 
 echo "Deleting pods"
 
-kubectl delete -f remon.yaml
+#kubectl delete -f remon.yaml
 
 kubectl delete -f page.yaml
+
+echo "The RAM size is $VAL for the lemon server"
+
+sed -i "s/$VAL/new_value/g" remJob.yaml
+
+sed -i "s/$PAGE/new_value/g" page.yaml
+
+cat page.yaml
 
 echo "Done"
 

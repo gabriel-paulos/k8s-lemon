@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: duck-job
+spec:
+  template:
+    metadata:
+      name: duck
+    spec:
+      containers:
+      - name: duck
+        image: gabeee123/lem:duckd
+        volumeMounts:
+        - name: local-volume
+          mountPath: /mnt/
+        command:
+        - 'sh'
+        - '-c'
+        - |
+          sed -i 's/MAX_RAM_IN_GB: .*/MAX_RAM_IN_GB: new_value/' /home/ubuntu/lemon-all/duckdb_fixed_version/duckdb_0_8_1_remon_atached/build-release/remon.config
+          /home/ubuntu/mutil.sh
+      restartPolicy: Never   
+      volumes:
+      - name: local-volume
+        persistentVolumeClaim:
+          claimName: local-pvc
